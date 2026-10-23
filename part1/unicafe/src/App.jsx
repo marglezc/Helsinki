@@ -40,11 +40,14 @@ const App = () => {
         Bad
       </button>
 
-      <Statistics
-        good={good}
-        neutral={neutral}
-        bad={bad}
-      />
+      {good + neutral + bad === 0
+        ? <p>No feedback given</p>
+        : <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+          />
+      }
     </div>
   )
 }
