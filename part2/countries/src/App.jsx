@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import countriesService from './countries'
+import Weather from './Weather'
 
 const App = () => {
   const [countries, setCountries] = useState([])
@@ -62,7 +63,7 @@ const App = () => {
           )
         }
 
-        {/* Mostrar información del país seleccionado */}
+        {/* Información del país seleccionado */}
         {countryToShow && (
           <div>
             <h2>{countryToShow.name.common}</h2>
@@ -88,6 +89,14 @@ const App = () => {
               alt={`Flag of ${countryToShow.name.common}`}
               width="150"
             />
+
+            {/* Información meteorológica de la capital */}
+            {countryToShow.capital?.[0] && (
+              <Weather
+                capital={countryToShow.capital[0]}
+                coordinates={countryToShow.capitalInfo?.latlng}
+              />
+            )}
           </div>
         )}
       </div>
