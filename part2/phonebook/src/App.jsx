@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import personsService from './persons'
 
+// Componente para filtrar contactos
 const Filter = ({ filter, handleFilterChange }) => {
   return (
     <div>
@@ -13,6 +14,7 @@ const Filter = ({ filter, handleFilterChange }) => {
   )
 }
 
+// Componente para agregar contactos
 const PersonForm = ({
   addPerson,
   newName,
@@ -43,6 +45,7 @@ const PersonForm = ({
   )
 }
 
+// Componente para mostrar contactos
 const Persons = ({ persons, removePerson }) => {
   return (
     <>
@@ -58,13 +61,14 @@ const Persons = ({ persons, removePerson }) => {
   )
 }
 
-const Notification = ({ message }) => {
+// Componente para mostrar notificaciones
+const Notification = ({ message, type }) => {
   if (message === null) {
     return null
   }
 
   return (
-    <div className="success">
+    <div className={type}>
       {message}
     </div>
   )
@@ -75,20 +79,28 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+
   const [notificationMessage, setNotificationMessage] = useState(null)
+  const [notificationType, setNotificationType] = useState('success')
 
   const notificationTimeout = useRef(null)
 
+  // Obtener contactos del servidor
   useEffect(() => {
     personsService
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
       })
+      .catch(error => {
+        showNotification('Error loading phonebook data', 'error')
+      })
   }, [])
 
-  const showNotification = (message) => {
+  // Mostrar notificaciones durante 5 segundos
+  const showNotification = (message, type = 'success') => {
     setNotificationMessage(message)
+    setNotificationType(type)
 
     clearTimeout(notificationTimeout.current)
 
@@ -97,6 +109,7 @@ const App = () => {
     }, 5000)
   }
 
+  // Agregar o actualizar contactos
   const addPerson = (event) => {
     event.preventDefault()
 
@@ -130,7 +143,14 @@ const App = () => {
             setNewNumber('')
 
             showNotification(
-              `${returnedPerson.name}'s number updated successfully`
+              `${returnedPerson.name}'s number updated successfully`,
+              'success'
+            )
+          })
+          .catch(error => {
+            showNotification(
+              `Information of ${existingPerson.name} has already been removed from server`,
+              'error'
             )
           })
       }
@@ -154,11 +174,19 @@ const App = () => {
         setNewNumber('')
 
         showNotification(
-          `${returnedPerson.name} added successfully`
+          `${returnedPerson.name} added successfully`,
+          'success'
+        )
+      })
+      .catch(error => {
+        showNotification(
+          'Error adding person',
+          'error'
         )
       })
   }
 
+  // Eliminar contactos
   const removePerson = (id) => {
     const person = persons.find(person => person.id === id)
 
@@ -174,9 +202,16 @@ const App = () => {
             currentPersons.filter(person => person.id !== id)
           )
         })
+        .catch(error => {
+          showNotification(
+            `Error deleting ${person.name}`,
+            'error'
+          )
+        })
     }
   }
 
+  // Controlar cambios en los campos
   const handleNameChange = (event) => {
     setNewName(event.target.value)
   }
@@ -189,6 +224,7 @@ const App = () => {
     setFilter(event.target.value)
   }
 
+  // Filtrar contactos
   const personsToShow = persons.filter(person =>
     person.name.toLowerCase().includes(filter.toLowerCase())
   )
@@ -197,7 +233,10 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={notificationMessage} />
+      <Notification
+        message={notificationMessage}
+        type={notificationType}
+      />
 
       <Filter
         filter={filter}
