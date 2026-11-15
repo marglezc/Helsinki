@@ -5,6 +5,7 @@ import countriesService from './countries'
 const App = () => {
   const [countries, setCountries] = useState([])
   const [search, setSearch] = useState('')
+  const [selectedCountry, setSelectedCountry] = useState(null)
 
   useEffect(() => {
     countriesService
@@ -16,18 +17,17 @@ const App = () => {
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value)
+    setSelectedCountry(null)
   }
 
-  // Filtrar países según lo escrito en el buscador
+  // Filtrar países según la búsqueda
   const countriesToShow = countries.filter(country =>
     country.name.common.toLowerCase().includes(search.toLowerCase())
   )
 
-  // Obtener el país cuando solamente existe una coincidencia
-  const countryToShow =
-    countriesToShow.length === 1
-      ? countriesToShow[0]
-      : null
+  // Determinar qué país se debe mostrar
+  const countryToShow = selectedCountry ||
+    (countriesToShow.length === 1 ? countriesToShow[0] : null)
 
   return (
     <div>
@@ -52,11 +52,17 @@ const App = () => {
           countriesToShow.map(country =>
             <p key={country.cca3}>
               {country.name.common}
+
+              <button
+                onClick={() => setSelectedCountry(country)}
+              >
+                show
+              </button>
             </p>
           )
         }
 
-        {/* Una sola coincidencia: mostrar información completa */}
+        {/* Mostrar información del país seleccionado */}
         {countryToShow && (
           <div>
             <h2>{countryToShow.name.common}</h2>
