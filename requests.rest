@@ -60,3 +60,12 @@ Content-Type: application/json
   "name": "Carlos Pérez",
   "number": "999-1234567"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos Pérez",
+  "number": "999-1234567"
+}
