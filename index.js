@@ -27,10 +27,24 @@ const persons = [
 
 const PORT = 3001
 
+// Ejercicio 3.1
 app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
+// Ejercicio 3.3
+app.get('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+  const person = persons.find(person => person.id === id)
+
+  if (person) {
+    response.json(person)
+  } else {
+    response.status(404).json({ error: 'person not found' })
+  }
+})
+
+// Ejercicio 3.2
 app.get('/info', (request, response) => {
   const currentTime = new Date()
   const numberOfPersons = persons.length
