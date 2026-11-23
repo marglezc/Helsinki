@@ -32,7 +32,7 @@ app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
-// Ejercicio 3.3
+
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   const person = persons.find(person => person.id === id)
@@ -44,7 +44,21 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
-// Ejercicio 3.2
+app.delete('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id)
+
+  const person = persons.find(person => person.id === id)
+
+  if (person) {
+    const updatedPersons = persons.filter(person => person.id !== id)
+
+    persons.splice(0, persons.length, ...updatedPersons)
+    response.status(204).end()
+  } else {
+    response.status(404).end()
+  }
+})
+
 app.get('/info', (request, response) => {
   const currentTime = new Date()
   const numberOfPersons = persons.length

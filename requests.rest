@@ -1,0 +1,12 @@
+
+### Obtener todos los contactos
+GET http://localhost:3001/api/persons
+
+### Obtener un contacto
+GET http://localhost:3001/api/persons/2
+
+### Eliminar el contacto con ID 2
+DELETE http://localhost:3001/api/persons/2
+
+### Comprobar que fue eliminado
+GET http://localhost:3001/api/persons
