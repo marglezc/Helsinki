@@ -10,3 +10,12 @@ DELETE http://localhost:3001/api/persons/2
 
 ### Comprobar que fue eliminado
 GET http://localhost:3001/api/persons
+
+### Agregar un nuevo contacto
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mariana López",
+  "number": "999-1234567"
+}
