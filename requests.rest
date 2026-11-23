@@ -19,3 +19,44 @@ Content-Type: application/json
   "name": "Mariana López",
   "number": "999-1234567"
 }
+
+
+### Prueba 1: Falta el nombre
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "number": "999-1234567"
+}
+
+###
+
+### Prueba 2: Falta el número
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos Pérez"
+}
+
+###
+
+### Prueba 3: Nombre duplicado
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "999-1234567"
+}
+
+###
+
+### Prueba 4: Registro correcto
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos Pérez",
+  "number": "999-1234567"
+}
