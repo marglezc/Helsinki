@@ -1,18 +1,18 @@
 
 ### Obtener todos los contactos
-GET http://localhost:3001/api/persons
+GET https://phonebook-backend-lx3z.onrender.com/api/persons
 
 ### Obtener un contacto
-GET http://localhost:3001/api/persons/2
+GET https://phonebook-backend-lx3z.onrender.com/api/persons/2
 
 ### Eliminar el contacto con ID 2
-DELETE http://localhost:3001/api/persons/2
+DELETE https://phonebook-backend-lx3z.onrender.com/api/persons/2
 
 ### Comprobar que fue eliminado
-GET http://localhost:3001/api/persons
+GET https://phonebook-backend-lx3z.onrender.com/api/persons
 
 ### Agregar un nuevo contacto
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 
 
 ### Prueba 1: Falta el nombre
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 ###
 
 ### Prueba 2: Falta el número
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
 Content-Type: application/json
 
 {
@@ -42,7 +42,7 @@ Content-Type: application/json
 ###
 
 ### Prueba 3: Nombre duplicado
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
 Content-Type: application/json
 
 {
@@ -53,7 +53,7 @@ Content-Type: application/json
 ###
 
 ### Prueba 4: Registro correcto
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
 Content-Type: application/json
 
 {
@@ -62,10 +62,23 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3001/api/persons
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
 Content-Type: application/json
 
 {
   "name": "Carlos Pérez",
   "number": "999-1234567"
 }
+
+
+### Agregar contacto en Render
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mauricio Pérez",
+  "number": "999-1234967"
+}
+
+### Eliminar contacto en Render
+DELETE https://phonebook-backend-lx3z.onrender.com/api/persons/393566950
