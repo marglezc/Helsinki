@@ -85,18 +85,6 @@ const App = () => {
 
   const notificationTimeout = useRef(null)
 
-  // Obtener contactos del servidor
-  useEffect(() => {
-    personsService
-      .getAll()
-      .then(initialPersons => {
-        setPersons(initialPersons)
-      })
-      .catch(error => {
-        showNotification('Error loading phonebook data', 'error')
-      })
-  }, [])
-
   // Mostrar notificaciones durante 5 segundos
   const showNotification = (message, type = 'success') => {
     setNotificationMessage(message)
@@ -109,7 +97,19 @@ const App = () => {
     }, 5000)
   }
 
-  // Agregar o actualizar contactos
+  // Obtener contactos del servidor
+  useEffect(() => {
+    personsService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
+      })
+      .catch(error => {
+        showNotification('Error loading phonebook data', 'error')
+      })
+  }, [])
+
+  // Agregar contactos
   const addPerson = (event) => {
     event.preventDefault()
 
@@ -118,43 +118,7 @@ const App = () => {
     )
 
     if (existingPerson) {
-      const confirmUpdate = window.confirm(
-        `${newName} is already added to phonebook, replace the old number with a new one?`
-      )
-
-      if (confirmUpdate) {
-        const updatedPerson = {
-          ...existingPerson,
-          number: newNumber
-        }
-
-        personsService
-          .update(existingPerson.id, updatedPerson)
-          .then(returnedPerson => {
-            setPersons(currentPersons =>
-              currentPersons.map(person =>
-                person.id !== existingPerson.id
-                  ? person
-                  : returnedPerson
-              )
-            )
-
-            setNewName('')
-            setNewNumber('')
-
-            showNotification(
-              `${returnedPerson.name}'s number updated successfully`,
-              'success'
-            )
-          })
-          .catch(error => {
-            showNotification(
-              `Information of ${existingPerson.name} has already been removed from server`,
-              'error'
-            )
-          })
-      }
-
+      window.alert(`${newName} is already added to phonebook`)
       return
     }
 
