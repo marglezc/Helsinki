@@ -3,16 +3,11 @@ const mongoose = require('mongoose')
 
 const password = process.argv[2]
 
-const uri = `mongodb+srv://a19201105_db_user:${encodeURIComponent(password)}@phonebook.fp28agx.mongodb.net/phonebook?retryWrites=true&w=majority`
+const uri = `mongodb+srv://a19201105_db_user:<db_password>@phonebook.fp28agx.mongodb.net/`
 
 mongoose.connect(uri)
 
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
-
-const Person = mongoose.model('Person', personSchema)
+const Person = require('./models/person')
 
 const main = async () => {
   try {

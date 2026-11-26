@@ -1,6 +1,18 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const Person = require('./models/person')
+require('dotenv').config()
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('Connected to MongoDB')
+  })
+  .catch(error => {
+    console.log('Error connecting to MongoDB:', error.message)
+  })
+  
 const app = express()
 
 morgan.token('body', (request) => {
@@ -37,9 +49,10 @@ const persons = [
 
 const PORT = process.env.PORT || 3001
 
-
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
 })
 
 app.post('/api/persons', (request, response) => {
