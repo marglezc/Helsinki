@@ -85,3 +85,13 @@ DELETE https://phonebook-backend-lx3z.onrender.com/api/persons/393566950
 
 ### Eliminar contacto con ID incorrecto
 DELETE http://localhost:3001/api/persons/123abc
+
+
+### Actualizar contacto
+PUT http://localhost:3001/api/persons/6b0779896aad1a829adf5035
+Content-Type: application/json
+
+{
+  "name": "Anna",
+  "number": "040-999999"
+}
