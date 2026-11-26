@@ -114,3 +114,39 @@ Content-Type: application/json
   "name": "Ana",
   "number": "999-1234567"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos",
+  "number": "09-1234556"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Pedro",
+  "number": "09-1234"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Laura",
+  "number": "1-22334455"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mariana",
+  "number": "10-22-334455"
+}
