@@ -82,3 +82,6 @@ Content-Type: application/json
 
 ### Eliminar contacto en Render
 DELETE https://phonebook-backend-lx3z.onrender.com/api/persons/393566950
+
+### Eliminar contacto con ID incorrecto
+DELETE http://localhost:3001/api/persons/123abc

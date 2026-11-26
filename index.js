@@ -4,6 +4,7 @@ const cors = require('cors')
 const Person = require('./models/person')
 require('dotenv').config()
 const mongoose = require('mongoose')
+const errorHandler = require('./errorHandler')
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
@@ -86,7 +87,7 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndDelete(request.params.id)
     .then(result => {
       if (result) {
@@ -95,6 +96,7 @@ app.delete('/api/persons/:id', (request, response) => {
         response.status(404).end()
       }
     })
+    .catch(error => next(error))
 })
 
 app.get('/info', (request, response) => {
@@ -106,6 +108,8 @@ app.get('/info', (request, response) => {
     <p>${currentTime}</p>
   `)
 })
+
+app.use(errorHandler)
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`)
