@@ -109,80 +109,77 @@ const App = () => {
       })
   }, [])
 
-  // Agregar contactos
-  
-// Agregar o actualizar contactos
-const addPerson = (event) => {
-  event.preventDefault()
+  // Agregar o actualizar contactos
+  const addPerson = (event) => {
+    event.preventDefault()
 
-  const existingPerson = persons.find(
-    person => person.name === newName
-  )
-
-  const personObject = {
-    name: newName,
-    number: newNumber
-  }
-
-  if (existingPerson) {
-    const confirmUpdate = window.confirm(
-      `${newName} is already added to phonebook. Replace the old number with a new one?`
+    const existingPerson = persons.find(
+      person => person.name === newName
     )
 
-    if (confirmUpdate) {
-      personsService
-        .update(existingPerson.id, personObject)
-        .then(updatedPerson => {
-          setPersons(currentPersons =>
-            currentPersons.map(person =>
-              person.id === updatedPerson.id
-                ? updatedPerson
-                : person
-            )
-          )
-
-          setNewName('')
-          setNewNumber('')
-
-          showNotification(
-            `${updatedPerson.name}'s number updated successfully`,
-            'success'
-          )
-        })
-        .catch(error => {
-          showNotification(
-            `Error updating ${existingPerson.name}`,
-            'error'
-          )
-        })
+    const personObject = {
+      name: newName,
+      number: newNumber
     }
 
-    return
+    if (existingPerson) {
+      const confirmUpdate = window.confirm(
+        `${newName} is already added to phonebook. Replace the old number with a new one?`
+      )
+
+      if (confirmUpdate) {
+        personsService
+          .update(existingPerson.id, personObject)
+          .then(updatedPerson => {
+            setPersons(currentPersons =>
+              currentPersons.map(person =>
+                person.id === updatedPerson.id
+                  ? updatedPerson
+                  : person
+              )
+            )
+
+            setNewName('')
+            setNewNumber('')
+
+            showNotification(
+              `${updatedPerson.name}'s number updated successfully`,
+              'success'
+            )
+          })
+          .catch(error => {
+            showNotification(
+              error.response?.data?.error || 'Error updating person',
+              'error'
+            )
+          })
+      }
+
+      return
+    }
+
+    personsService
+      .create(personObject)
+      .then(returnedPerson => {
+        setPersons(currentPersons =>
+          currentPersons.concat(returnedPerson)
+        )
+
+        setNewName('')
+        setNewNumber('')
+
+        showNotification(
+          `${returnedPerson.name} added successfully`,
+          'success'
+        )
+      })
+      .catch(error => {
+        showNotification(
+          error.response?.data?.error || 'Error adding person',
+          'error'
+        )
+      })
   }
-
-  personsService
-    .create(personObject)
-    .then(returnedPerson => {
-      setPersons(currentPersons =>
-        currentPersons.concat(returnedPerson)
-      )
-
-      setNewName('')
-      setNewNumber('')
-
-      showNotification(
-        `${returnedPerson.name} added successfully`,
-        'success'
-      )
-    })
-    .catch(error => {
-      showNotification(
-        'Error adding person',
-        'error'
-      )
-    })
-}
-
 
   // Eliminar contactos
   const removePerson = (id) => {
