@@ -96,3 +96,21 @@ Content-Type: application/json
   "name": "Anna",
   "number": "040-999999"
 }
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Al",
+  "number": "999-1234567"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Ana",
+  "number": "999-1234567"
+}
