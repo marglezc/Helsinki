@@ -1,8 +1,6 @@
 
 const mongoose = require('mongoose')
 
-const password = process.argv[2]
-
 const uri = `mongodb+srv://a19201105_db_user:<db_password>@phonebook.fp28agx.mongodb.net/`
 
 mongoose.connect(uri)
