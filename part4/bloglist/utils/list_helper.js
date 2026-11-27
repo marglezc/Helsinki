@@ -23,8 +23,33 @@ const favoriteBlog = (blogs) => {
   }
 }
 
+const topAuthorBy = (blogs, metricKey, getIncrement) => {
+  if (blogs.length === 0) {
+    return null
+  }
+
+  const totals = new Map()
+  for (const blog of blogs) {
+    totals.set(blog.author, (totals.get(blog.author) || 0) + getIncrement(blog))
+  }
+
+  let topAuthor = null
+  let maxTotal = -Infinity
+  for (const [author, total] of totals.entries()) {
+    if (total > maxTotal) {
+      topAuthor = author
+      maxTotal = total
+    }
+  }
+
+  return { author: topAuthor, [metricKey]: maxTotal }
+}
+
+const mostBlogs = (blogs) => topAuthorBy(blogs, 'blogs', () => 1)
+
 module.exports = {
   dummy,
   totalLikes,
-  favoriteBlog
+  favoriteBlog,
+  mostBlogs
 }
