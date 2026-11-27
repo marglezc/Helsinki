@@ -47,9 +47,12 @@ const topAuthorBy = (blogs, metricKey, getIncrement) => {
 
 const mostBlogs = (blogs) => topAuthorBy(blogs, 'blogs', () => 1)
 
+const mostLikes = (blogs) => topAuthorBy(blogs, 'likes', (blog) => blog.likes)
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
