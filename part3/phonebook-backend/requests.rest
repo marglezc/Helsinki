@@ -1,0 +1,152 @@
+
+### Obtener todos los contactos
+GET http://localhost:3001/api/persons
+
+### Obtener un contacto
+###
+GET http://localhost:3001/api/persons/6b0779896aad1a829adf5035
+
+### Eliminar el contacto con ID 2
+DELETE https://phonebook-backend-lx3z.onrender.com/api/persons/2
+
+### Comprobar que fue eliminado
+GET https://phonebook-backend-lx3z.onrender.com/api/persons
+
+### Agregar un nuevo contacto
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mariana López",
+  "number": "999-1234567"
+}
+
+
+### Prueba 1: Falta el nombre
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "number": "999-1234567"
+}
+
+###
+
+### Prueba 2: Falta el número
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos Pérez"
+}
+
+###
+
+### Prueba 3: Nombre duplicado
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Arto Hellas",
+  "number": "999-1234567"
+}
+
+###
+
+### Prueba 4: Registro correcto
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos Pérez",
+  "number": "999-1234567"
+}
+
+###
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos Pérez",
+  "number": "999-1234567"
+}
+
+
+### Agregar contacto en Render
+POST https://phonebook-backend-lx3z.onrender.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mauricio Pérez",
+  "number": "999-1234967"
+}
+
+### Eliminar contacto en Render
+DELETE https://phonebook-backend-lx3z.onrender.com/api/persons/393566950
+
+### Eliminar contacto con ID incorrecto
+DELETE http://localhost:3001/api/persons/123abc
+
+
+### Actualizar contacto
+PUT http://localhost:3001/api/persons/6b0779896aad1a829adf5035
+Content-Type: application/json
+
+{
+  "name": "Anna",
+  "number": "040-999999"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Al",
+  "number": "999-1234567"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Ana",
+  "number": "999-1234567"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Carlos",
+  "number": "09-1234556"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Pedro",
+  "number": "09-1234"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Laura",
+  "number": "1-22334455"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Mariana",
+  "number": "10-22-334455"
+}
